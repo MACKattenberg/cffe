@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^bindings$
+^vignettes
+^tests/benchmarks
+^tests/valgrind
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

@@ -1,0 +1,51 @@
+Loading required package: usethis
+
+Attaching package: ‘testthat’
+
+The following object is masked from ‘package:devtools’:
+
+    test_file
+
+ℹ Loading grf
+Re-compiling grf
+* installing *source* package ‘grf’ ...
+** using staged installation
+** libs
+Makevars:1: *** missing separator.  Stop.
+Makevars:1: *** missing separator.  Stop.
+ERROR: compilation failed for package ‘grf’
+* removing ‘/tmp/RtmpXitThJ/devtools_install_3d77846971b3/grf’
+Error in `(function (command = NULL, args = character(), error_on_status = TRUE, …`:
+! System command 'R' failed
+---
+Exit status: 1
+stdout & stderr: <printed>
+---
+Backtrace:
+ 1. roxygen2::roxygenise(package.name)
+ 2. local load_code(base_path)
+ 3. pkgload::load_all(path, helpers = FALSE, attach_testthat = FALSE)
+ 4. pkgbuild::compile_dll(path, quiet = quiet)
+ 5. withr::with_makevars(compiler_flags(debug), assignment = "+=", …
+ 6. withr::with_envvar(c(R_MAKEVARS_USER = makevars_file), { …
+ 7. base::force(code)
+ 8. base::force(code)
+ 9. pkgbuild:::install_min(path, dest = install_dir, components = "libs", args = if (need…
+10. pkgbuild::rcmd_build_tools("INSTALL", c(path, paste("--library=", dest, …
+11. pkgbuild::with_build_tools({ …
+12. base::withCallingHandlers(callr::rcmd_safe(..., env = env, spinner = FALSE, …
+13. callr::rcmd_safe(..., env = env, spinner = FALSE, show = FALSE, …
+14. callr:::run_r(options)
+15. base::with(options, with_envvar(env, do.call(processx::run, c(list(bin, …
+16. base::with.default(options, with_envvar(env, do.call(processx::run, …
+17. base::eval(substitute(expr), data, enclos = parent.frame())
+18. base::eval(substitute(expr), data, enclos = parent.frame())
+19. callr:::with_envvar(env, do.call(processx::run, c(list(bin, args = real_cmdargs, …
+20. base::force(code)
+21. base::do.call(processx::run, c(list(bin, args = real_cmdargs, stdout_line_callba…
+22. (function (command = NULL, args = character(), error_on_status = TRUE, …
+23. base::throw(new_process_error(res, call = sys.call(), echo = echo, …
+24. | base::signalCondition(cond)
+25. (function (e) …
+26. asNamespace("callr")$err$throw(e)
+Execution halted
