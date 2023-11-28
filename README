@@ -1,0 +1,10 @@
+# to install the causal forest with fixed effects: 
+- open r-package/build_package.R
+- set WD to source file location
+- run build_package.R
+
+# to replicate simulation results in 'Causal Forests with Fixed Effects for Heterogeneous Treatment Effects in Difference-In-Differences'
+- open simulation-dp/simulation-cff3.R
+- set WD to source file location
+- run simulation-cff3.R
+
