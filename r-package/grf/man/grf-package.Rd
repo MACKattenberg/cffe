@@ -112,6 +112,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Julie Tibshirani \email{jtibs@cs.stanford.edu}
   \item Susan Athey
   \item Erik Sverdrup
   \item Stefan Wager

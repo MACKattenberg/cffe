@@ -10,7 +10,7 @@ causal_fe_forest(
   W,
   individual_fe,
   time_fe,
-  event_time_fe,
+  event_time_fe = NULL,
   Y.hat = NULL,
   W.hat = NULL,
   num.trees = 2000,

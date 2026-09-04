@@ -1,0 +1,6 @@
+*.DS_Store
+.Rproj.user
+analyse-dp/output/
+simulation-dp/output/
+simulation-dp/sandbox/
+*.png

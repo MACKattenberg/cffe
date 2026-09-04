@@ -54,17 +54,19 @@ export(tune_regression_forest)
 export(variable_importance)
 importFrom(Matrix,Matrix)
 importFrom(Rcpp,evalCpp)
-importFrom(stats,coef)
-importFrom(stats,dbeta)
-importFrom(stats,lm)
-importFrom(stats,median)
-importFrom(stats,predict)
-importFrom(stats,rbinom)
-importFrom(stats,rexp)
-importFrom(stats,rnorm)
-importFrom(stats,rpois)
-importFrom(stats,runif)
-importFrom(stats,sd)
-importFrom(stats,var)
-importFrom(stats,weighted.mean)
+importFrom(stats,
+  coef,
+  dbeta,
+  lm,
+  median,
+  predict,
+  rbinom,
+  rexp,
+  rnorm,
+  rpois,
+  runif,
+  sd,
+  var,
+  weighted.mean
+)
 useDynLib(grf)

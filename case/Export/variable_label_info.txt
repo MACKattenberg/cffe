@@ -1,0 +1,40 @@
+estimation_quarter:
+	indicatie van kwartaal waarin payrolling plaatsvond
+	195 = 2008Q1
+	...
+	227 = 2016Q1
+
+age_group:
+	1 = 18-24
+	2 = 25-34
+	3 = 35-44
+	4 = 45-75
+	
+ten_group:
+	1 = 0-3 kwartelen (tot 1 jaar)
+	2 = 4-7 kwartalen (1-2 jaar)
+	3 = 8 kwartalen of meer (2 jaar of meer)
+	
+contract_group_t1:
+	0 = vast contract
+	1 = tijdelijk contract
+	
+edu_t1:
+	1 = laag opgeleid
+	2 = middelbaar opgeleid
+	3 = hoog opgeleid
+	9 = onbekend
+	
+edu_enroll_t1:
+	0 = niet ingeschreven bij opleiding
+	1 = ingeschreven bij opleiding
+
+female:
+	0 = geen vrouw
+	1 = vrouw
+
+generation:
+	0 = Nederlandse achtergrond
+	1 = migratieachtergrond, 1e generatie
+	2 = migratieachtergrond, 2e generatie
+	

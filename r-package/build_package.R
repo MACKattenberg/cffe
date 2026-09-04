@@ -12,6 +12,11 @@ library(devtools)
 library(testthat)
 library(roxygen2)
 
+library(DiceKriging)
+library(lmtest)
+library(sandwich)
+library(RcppEigen)
+
 package.name <- "grf"
 
 # If built for CRAN, exlude all test except ones with "cran" in the filename
@@ -22,10 +27,12 @@ if (!is.na(args[1]) && args[1] == "--as-cran") {
 }
 
 # Auto-generate documentation files
-roxygen2::roxygenise(package.name)
+roxygen2::roxygenise(package.name, clean = TRUE)
 
 # Run Rcpp and build the package.
 # Symlinks in `grf/src` point to the Rcpp bindings (`grf/bindings`) and core C++ (`core/src`).
+# NOTE: THE ABOVE LINE IS NOT TRUE, the symlinks do not seem to work.
+# As such, core/src is now included in the R-package code
 # Note: we don't link in third_party/Eigen, because for the R package build we provide
 # access to the library through RcppEigen.
 compileAttributes(package.name)
@@ -37,4 +44,5 @@ install(package.name)
 library(package.name, character.only = TRUE)
 # Treat warnings as errors.
 options(warn = 2)
-#test_package(package.name)
+test_package(package.name)
+options(warn = 0)

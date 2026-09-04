@@ -6,17 +6,24 @@
 # treatment group indicator = treat
 # treatment indicator = posttreat
 
+## Set working directory to script location
+# MODIFY TO YOUR LOCAL FILE PATH (Or > Session > Set Working Directory > To Source File Location)
+# setwd("grf-did/simulation-dp")
+
+## Required packages
+# Download these if they are not available on your system
+# e.g. using install.packages(package-name)
+library(grf)
 library(purrr)
 library(dplyr)
 library(data.table)
 library(ggplot2)
-library(grf)
 library(writexl)
 library(readxl)
 library(xtable)
 library(fixest)
 
-# Define settings
+## Define settings
 rm(list = ls())
 
 kappa_list <- c(0, 5)
@@ -29,7 +36,15 @@ y_stub <- "y_kaplam"
 N <- 1500
 
 # define output folder
-output_folder <- paste0("./output/", set_distr, "/")
+output_folder <- paste0("output/", set_distr, "/")
+
+# Check if the folder exists, and create it if it doesn't
+if (!dir.exists("output")) {
+  dir.create("output")
+}
+if (!dir.exists(output_folder)) {
+  dir.create(output_folder)
+}
 
 # make arguments from kappa and lambda
 args_kaplam <- expand.grid("kappa" = kappa_list, "lambda" = lambda_list)
@@ -48,13 +63,8 @@ yhats_dcf_2p <- paste0("tau_hat_dcf_2p_", values_kaplam)
 # load the functions we need: all .R files except this one
 files <- setdiff(
   grep("*.R", list.files(path = getwd()), value = TRUE),
-  "simulation-cffe3.R") 
+  "simulation-cffe3.R")
 for (f in files) source(f)
-
-
-
-
-
 
 ## SINGLE EVENT STUDY-----------------------------------------------------------
 # make data
@@ -64,7 +74,7 @@ data <- make_data()
 make_DD_plot(sim = "sim1", dt = data, "dd_plot.png")
 
 # run_cffe requires event time indicator
-data[, t_star := t] 
+data[, t_star := t]
 
 # train models on single event data
 cffe <- run_cffe_by_period(dt = data,
@@ -78,7 +88,7 @@ cffe_2p <- run_cffe_by_period(dt = data[t_star >= 2 & t_star <= 3],
 colnames(cffe_2p) <- gsub("cffe_", "cffe_2p_", colnames(cffe_2p))
 dcf_2p <- run_dcf(dt = data[t_star <= 3], treatment_id = "event_id")
 colnames(dcf_2p) <- gsub("dcf_", "dcf_2p_", colnames(dcf_2p))
-         
+
 # add predictions to effects
 effects <- collect_estimation_results(
   dt = data[t >= 3],
@@ -126,13 +136,6 @@ make_simulation_plots(
   prefix = "sim1_")
 
 
-
-
-
-
-
-
-
 ## MULTIPLE EVENTS STUDY--------------------------------------------------------
 
 # make data_stacked
@@ -142,7 +145,7 @@ data_stacked <- data_stacked[i <= N]
 # make difference-in-differences plot sim 2
 make_DD_plot(
   sim = "sim2",
-  dt = data_stacked, 
+  dt = data_stacked,
   save_as = c("dd_plot_stacked1.png", "dd_plot_stacked2.png"))
 
 # train models on multiple events data
@@ -179,7 +182,7 @@ make_bias_table(
 #   save_xls = "sim2_bias_event1.xlsx",
 #   save_tex = "sim2_bias_event1.tex"
 # )
-# 
+#
 # # compute bias for second event
 # make_bias_table(
 #   dt = effects_stacked[sec_treatment == 1],
@@ -189,7 +192,7 @@ make_bias_table(
 #   save_tex = "sim2_bias_event2.tex"
 # )
 
-# compute rmse 
+# compute rmse
 make_rmse_table(
   dt = effects_stacked,
   yhats = c(yhats_cffe, yhats_mrcf, yhats_dcf, yhats_cffe_2p, yhats_dcf_2p),
@@ -206,7 +209,7 @@ make_rmse_table(
 #   save_xls = "sim2_rmse_event1.xlsx",
 #   save_tex = "sim2_rmse_event1.tex"
 # )
-# 
+#
 # # compute rmse for second event
 # make_rmse_table(
 #   dt = effects_stacked[sec_treatment == 1],
