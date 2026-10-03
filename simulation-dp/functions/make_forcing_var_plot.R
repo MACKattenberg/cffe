@@ -33,6 +33,7 @@ make_forcing_var_plot <- function(dt_effects, truth, estimator, # "cffe" or "cfd
   }
   
   
+  if ("00" %in% values_kaplam) {
   # make and save the plots: kappa = 0, lambda = 0
   ggplot(dt.in) +
     geom_ribbon(aes(ymin = lb00, ymax = ub00, x = forcing_var, fill = "CFI")) +
@@ -46,7 +47,9 @@ make_forcing_var_plot <- function(dt_effects, truth, estimator, # "cffe" or "cfd
     scale_fill_manual(values="grey60")+
     theme(legend.position="bottom")
   ggsave(paste0(filename, "kl00.png"), width = 6, height = 6)
+  }
   
+  if ("05" %in% values_kaplam) {
   # make and save the plots: kappa = 0, lambda = 5
   ggplot(dt.in) +
     geom_ribbon(aes(ymin = lb05, ymax = ub05, x = forcing_var, fill = "CFI")) +
@@ -60,7 +63,9 @@ make_forcing_var_plot <- function(dt_effects, truth, estimator, # "cffe" or "cfd
     scale_fill_manual(values="grey60")+
     theme(legend.position="bottom")
   ggsave(paste0(filename, "kl05.png"), width = 6, height = 6)
+  }
   
+  if ("50" %in% values_kaplam) {
   # make and save the plots: kappa = 5, lambda = 0
   ggplot(dt.in) +
     geom_ribbon(aes(ymin = lb50, ymax = ub50, x = forcing_var, fill = "CFI")) +
@@ -74,7 +79,9 @@ make_forcing_var_plot <- function(dt_effects, truth, estimator, # "cffe" or "cfd
     scale_fill_manual(values="grey60")+
     theme(legend.position="bottom")
   ggsave(paste0(filename, "kl50.png"), width = 6, height = 6)
+  }
   
+  if ("55" %in% values_kaplam) {
   # make and save the plots: kappa = 5, lambda = 5
   ggplot(dt.in) +
     geom_ribbon(aes(ymin = lb55, ymax = ub55, x = forcing_var, fill = "CFI")) +
@@ -88,4 +95,5 @@ make_forcing_var_plot <- function(dt_effects, truth, estimator, # "cffe" or "cfd
     scale_fill_manual(values="grey60")+
     theme(legend.position="bottom")
   ggsave(paste0(filename, "kl55.png"), width = 6, height = 6)
+  }
 }

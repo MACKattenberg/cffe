@@ -90,19 +90,17 @@ compute_measures <- function(dt_draws, estimator = "var", digits = 3){
   
   # compute measures: i.e the mean of means, lb of means, etc.
   means <- round(rowMeans(res[, ..sel_cols]), digits)
-  sds <- round(matrixStats::rowSds(as.matrix(res[, ..sel_cols])), digits)
-  lb <- round(matrixStats::rowQuantiles(as.matrix(res[, ..sel_cols]),
-                                        probs=c(0.025)), digits)
-  median <- round(matrixStats::rowQuantiles(as.matrix(res[, ..sel_cols]),
-                                            probs=c(0.5)), digits)
-  ub <- round(matrixStats::rowQuantiles(as.matrix(res[, ..sel_cols]),
-                                        probs=c(0.975)), digits)
+  draw_matrix <- as.matrix(res[, ..sel_cols])
+  sds <- round(apply(draw_matrix, 1, sd), digits)
+  lb <- round(apply(draw_matrix, 1, quantile, probs = 0.025), digits)
+  median <- round(apply(draw_matrix, 1, quantile, probs = 0.5), digits)
+  ub <- round(apply(draw_matrix, 1, quantile, probs = 0.975), digits)
   
   # make additional columns
   var <- res[, ..estimator][[1]]
   #var <- c("tau_hat_cffe_50", "tau_hat_cffe_55")
-  kappa <- stringr::str_sub(var, -2, -2)
-  lambda <- stringr::str_sub(var, -1, -1)
+  kappa <- substr(var, nchar(var) - 1, nchar(var) - 1)
+  lambda <- substr(var, nchar(var), nchar(var))
   
   # remove lambda, kappa, "tau_hat_" and "_" from var
   for (i in unique(c(kappa, lambda))) var <- gsub(i, "", var)

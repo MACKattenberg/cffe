@@ -27,7 +27,7 @@ library(here)
 rm(list = ls())
 
 # source functions
-here::i_am("README.MD")
+here::i_am("simulation-dp/main.R")
 setwd(here("simulation-dp"))
 
 files <- list.files("./functions")
@@ -50,7 +50,7 @@ output_folder <- paste0("results/", set_distr, "/")
 
 # Check if the folder exists, and create it if it doesn't
 if (!dir.exists(output_folder)) {
-  dir.create(output_folder)
+  dir.create(output_folder, recursive = TRUE)
 }
 
 # make arguments from kappa and lambda
@@ -94,6 +94,7 @@ colnames(dcf_2p) <- gsub("dcf_", "dcf_2p_", colnames(dcf_2p))
 # add predictions to effects
 effects <- collect_estimation_results(
   dt = data[t >= 3],
+  y_vars = y_vars,
   estimates = list(cffe, mrcf, dcf, cffe_2p, dcf_2p))
 
 
@@ -164,6 +165,7 @@ colnames(dcf3_2p) <- gsub("dcf_", "dcf_2p_", colnames(dcf3_2p))
 # add predictions to effects
 effects_stacked <- collect_estimation_results(
   dt = data_stacked[t_star >= 3],
+  y_vars = y_vars,
   select_from_dt = "sec_treatment",
   estimates = list(cffe3, mrcf3, dcf3, cffe3_2p, dcf3_2p))
 
