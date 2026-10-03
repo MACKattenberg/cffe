@@ -22,13 +22,23 @@ library(writexl)
 library(readxl)
 library(xtable)
 library(fixest)
+library(here)
 
-## Define settings
 rm(list = ls())
 
-kappa_list <- c(0, 5)
-lambda_list <- c(0, 5)
-N_trees <- 2000 # use lower number (min = 50) for speed
+# source functions
+here::i_am("README.MD")
+setwd(here("simulation-dp"))
+
+files <- list.files("./functions")
+for (f in files) {
+  source(paste0("./functions/", f))
+}
+
+## Define settings
+kappa_list <- c(5)
+lambda_list <- c(5)
+N_trees <- 200 # use lower number (min = 50) for speed # default: 2000
 min_node_size <- 5
 set.seed(18062014)
 set_distr = "uniform"
@@ -36,12 +46,9 @@ y_stub <- "y_kaplam"
 N <- 1500
 
 # define output folder
-output_folder <- paste0("output/", set_distr, "/")
+output_folder <- paste0("results/", set_distr, "/")
 
 # Check if the folder exists, and create it if it doesn't
-if (!dir.exists("output")) {
-  dir.create("output")
-}
 if (!dir.exists(output_folder)) {
   dir.create(output_folder)
 }
@@ -60,11 +67,6 @@ yhats_dcf  <- paste0("tau_hat_dcf_" , values_kaplam)
 yhats_cffe_2p <- paste0("tau_hat_cffe_2p_", values_kaplam)
 yhats_dcf_2p <- paste0("tau_hat_dcf_2p_", values_kaplam)
 
-# load the functions we need: all .R files except this one
-files <- setdiff(
-  grep("*.R", list.files(path = getwd()), value = TRUE),
-  "simulation-cffe3.R")
-for (f in files) source(f)
 
 ## SINGLE EVENT STUDY-----------------------------------------------------------
 # make data
